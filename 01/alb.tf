@@ -15,13 +15,13 @@ resource "aws_alb_target_group" "test" {
   vpc_id = aws_vpc.test.id
 }
 
-resource "aws_alb_target_group_attachment" "publicInstance01" {
+resource "aws_alb_target_group_attachment" "privateInstance01" {
   target_group_arn = aws_alb_target_group.test.arn
   target_id = aws_instance.testEC201.id
   port = 80
 }
 
-resource "aws_alb_target_group_attachment" "publicInstance02" {
+resource "aws_alb_target_group_attachment" "privateInstance02" {
   target_group_arn = aws_alb_target_group.test.arn
   target_id = aws_instance.testEC202.id
   port = 80

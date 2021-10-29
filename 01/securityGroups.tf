@@ -1,3 +1,5 @@
+# Security Group
+## public Seucurity Group
 resource "aws_security_group" "publicSG01" {
   name = "public-SG-01"
   description = "Allow all HTTP"
@@ -17,6 +19,7 @@ resource "aws_security_group" "publicSG01" {
   }
 }
 
+## private Security Group
 resource "aws_security_group" "privateEC2SG01" {
   name = "private-ec2-sg-01"
   description = "Allow HTTP from ALB"

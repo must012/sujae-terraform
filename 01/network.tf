@@ -1,12 +1,19 @@
+# VPC
 resource "aws_vpc" "test" {
   cidr_block = "159.0.0.0/16"
+  tags = {
+    "Name" = "terraform-test-vpc"
+  }
 }
 
+# VPC Endpoint
 resource "aws_vpc_endpoint" "s3" {
   vpc_id = aws_vpc.test.id
   service_name = "com.amazonaws.ap-northeast-1.s3"
 }
 
+# Subnets
+## public subnet
 resource "aws_subnet" "publicSubnet1" {
   vpc_id = aws_vpc.test.id
   cidr_block = "159.0.0.0/24"
@@ -25,6 +32,7 @@ resource "aws_subnet" "publicSubnet2" {
   }
 }
 
+## private ec2 subnet
 resource "aws_subnet" "privateEC2Subnet1" {
   vpc_id = aws_vpc.test.id
   cidr_block = "159.0.2.0/24"
@@ -42,6 +50,8 @@ resource "aws_subnet" "privateEC2Subnet2" {
     "Name" = "test-private-ec2-subnet-02"
   }
 }
+
+## private rds subnet
 resource "aws_subnet" "privateRDSSubnet1" {
   vpc_id = aws_vpc.test.id
   cidr_block = "159.0.4.0/24"
@@ -60,6 +70,7 @@ resource "aws_subnet" "privateRDSSubnet2" {
   }
 }
 
+# IGW
 resource "aws_internet_gateway" "testIGW" {
   vpc_id = aws_vpc.test.id
   tags = {
@@ -67,6 +78,7 @@ resource "aws_internet_gateway" "testIGW" {
   }
 }
 
+# Route Table
 resource "aws_route_table" "testPublicRTb" {
   vpc_id = aws_vpc.test.id
 
@@ -81,7 +93,6 @@ resource "aws_route_table" "testPublicRTb" {
   }
 }
 
-
 resource "aws_route_table" "testPrivateRTb" {
   vpc_id = aws_vpc.test.id
   tags = {
@@ -89,6 +100,8 @@ resource "aws_route_table" "testPrivateRTb" {
   }
 }
 
+## route
+### vpc endpoint associate
 resource "aws_vpc_endpoint_route_table_association" "publicRTbEndpoint" {
   route_table_id = aws_route_table.testPublicRTb.id
   vpc_endpoint_id = aws_vpc_endpoint.s3.id
@@ -99,6 +112,7 @@ resource "aws_vpc_endpoint_route_table_association" "privateRTbEndpoint" {
   vpc_endpoint_id = aws_vpc_endpoint.s3.id
 }
 
+### subnet associate
 resource "aws_route_table_association" "publicRTbAssociation01" {
   subnet_id = aws_subnet.publicSubnet1.id
   route_table_id = aws_route_table.testPublicRTb.id
