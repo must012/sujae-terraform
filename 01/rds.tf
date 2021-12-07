@@ -25,5 +25,8 @@ resource "aws_db_instance" "testDB" {
   password = var.db_password
   name = "testDB"
   port = "3306"
+  vpc_security_group_ids= [
+    aws_security_group.privateRDSSG01.id
+  ]
 }
 
