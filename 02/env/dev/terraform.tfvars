@@ -1,0 +1,12 @@
+env               = "dev"
+vpc_cidr          = "202.2.0.0/16"
+resource_count    = 2
+instance_type     = "t3.medium"
+ebs_size          = 50
+rds_storage       = 50
+db_engine         = "mariadb"
+db_engine_version = "10.2"
+db_instance_class = "db.t3.small"
+db_user_name      = "root"
+database_name     = "FirstDatabase"
+database_port     = 3306

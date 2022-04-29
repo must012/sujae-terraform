@@ -1,0 +1,12 @@
+env               = "dev"
+vpc_cidr          = "202.2.0.0/16"
+resource_count    = 2
+instance_type     = "m5.medium"
+ebs_size          = 500
+rds_storage       = 1000
+db_engine         = "mariadb"
+db_engine_version = "10.2"
+db_instance_class = "db.m5.medium"
+db_user_name      = "root"
+database_name     = "employment"
+database_port     = 3306
