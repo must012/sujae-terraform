@@ -25,7 +25,7 @@ resource "aws_instance" "ec2" {
   vpc_security_group_ids = [
     var.private_sg
   ]
-  subnet_id = var.private_subnets[count.index]
+  subnet_id = element(var.private_subnets, count)
   key_name  = "publicTestKey"
 
   root_block_device {

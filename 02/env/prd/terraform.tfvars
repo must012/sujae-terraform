@@ -1,4 +1,3 @@
-env               = "dev"
 vpc_cidr          = "202.2.0.0/16"
 resource_count    = 2
 instance_type     = "m5.medium"
