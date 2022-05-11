@@ -1,15 +1,3 @@
-terraform {
-  required_version = "~> 1.0.9"
-
-  required_providers {
-    aws = "~> 4.0"
-  }
-}
-
-provider "aws" {
-  region = "ap-northeast-1"
-}
-
 module "network" {
   source    = "../../modules/network"
   vpc_cidr  = var.vpc_cidr
